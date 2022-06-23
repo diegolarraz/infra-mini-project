@@ -13,7 +13,6 @@ const PostList = () => {
   };
 
   useEffect(() => {
-    console.log("i ran");
     fetchPosts();
   }, []);
 
