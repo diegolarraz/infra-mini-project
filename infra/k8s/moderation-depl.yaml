@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moderation-depl
+spec:
+  # number of pods running a particular image
+  replicas: 1
+  selector:
+    # find all pods with label app 'moderation'
+    matchLabels:
+      app: moderation
+  # configuration for the pod that the deployment is going to make
+  template:
+    metadata:
+      labels:
+        app: moderation
+    spec:
+      containers:
+        - name: moderation
+          image: diegolarraz/moderation:latest
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: moderation-srv
+spec:
+  selector:
+    app: moderation
+  type: ClusterIP
+  ports:
+    - name: moderation
+      protocol: TCP
+      port: 4003
+      targetPort: 4003
